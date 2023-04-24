@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    container_name: mysql
+    image: mysql:8.0.33
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-my-secret-pw}
+      MYSQL_DATABASE: microsatellites
+    ports:
+      # mysql -u root -h localhost -P 3306 -p
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: "exit 0"
+  app:
+    container_name: microsatellites-api
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach
+      MYSQL_DATABASE_HOST: host.docker.internal
+      MYSQL_DATABASE_USER: root
+      MYSQL_DATABASE_PASSWORD: my-secret-pw
+      MYSQL_DATABASE_DB: microsatellites
