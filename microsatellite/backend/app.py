@@ -1,10 +1,12 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import mysql.connector
 import os
 import logging
 
 # Create a Flask app
 app = Flask(__name__)
+CORS(app)
 
 # Get environment variables
 host = os.getenv("MYSQL_HOST")
@@ -48,9 +50,9 @@ def get_microsatellites():
         # Add the dictionary to the list of microsatellites
         microsatellites.append(microsatellite)
 
-    # Close the cursor and database connection
+    # Close the cursor
     cursor.close()
-    db.close()
+    # db.close()
 
     # Return the list of microsatellites as JSON
     return jsonify(microsatellites)
