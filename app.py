@@ -7,10 +7,10 @@ import logging
 app = Flask(__name__)
 
 # Get environment variables
-host = os.getenv("MYSQL_DATABASE_HOST")
-user = os.getenv("MYSQL_DATABASE_USER")
-password = os.getenv("MYSQL_DATABASE_PASSWORD")
-database = os.getenv("MYSQL_DATABASE_DATABASE")
+host = os.getenv("MYSQL_HOST")
+user = os.getenv("MYSQL_USER")
+password = os.getenv("MYSQL_PASSWORD")
+database = os.getenv("MYSQL_DATABASE")
 
 # Set up a MySQL connection
 db = mysql.connector.connect(

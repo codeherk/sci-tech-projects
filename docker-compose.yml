@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-my-secret-pw}
-      MYSQL_DATABASE: microsatellites
+      MYSQL_DATABASE: biology
     ports:
       # mysql -u root -h localhost -P 3306 -p
       - "3306:3306"
@@ -27,7 +27,7 @@ services:
         condition: service_healthy
     environment:
       # https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach
-      MYSQL_DATABASE_HOST: host.docker.internal
-      MYSQL_DATABASE_USER: root
-      MYSQL_DATABASE_PASSWORD: my-secret-pw
-      MYSQL_DATABASE_DB: microsatellites
+      MYSQL_HOST: host.docker.internal
+      MYSQL_USER: root
+      MYSQL_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: biology

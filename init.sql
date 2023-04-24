@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS microsatellites;
+CREATE DATABASE IF NOT EXISTS biology;
 
-USE microsatellites;
+USE biology;
 
-CREATE TABLE IF NOT EXISTS microsatellite (
+CREATE TABLE IF NOT EXISTS microsatellites (
   id INT(11) NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   base VARCHAR(10) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS microsatellite (
   PRIMARY KEY (id)
 );
 
-INSERT INTO microsatellite (name, base, repeats) VALUES 
+INSERT INTO microsatellites (name, base, repeats) VALUES 
 ('Byron Jenkins', 'CA', 2),
 ('Maeve Chen', 'TTG', 3),
 ('Anjali Gupta', 'GCT', 4),
