@@ -1,8 +1,13 @@
-from flask import Flask, jsonify, make_response
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import mysql.connector
 import os
 import logging
+
+select_microsatellites_statement = "SELECT * FROM microsatellites"
+insert_microsatellites_statement = ("INSERT INTO microsatellites "
+               "(name, base, repeats) "
+               "VALUES (%s, %s, %s)")
 
 # Create a Flask app
 app = Flask(__name__)
@@ -15,7 +20,7 @@ password = os.getenv("MYSQL_PASSWORD")
 database = os.getenv("MYSQL_DATABASE")
 
 # Define a route for the microsatellite API
-@app.route('/microsatellites')
+@app.route('/microsatellites', methods = ['GET'])
 def get_microsatellites():
     try:
         # Set up a MySQL connection
@@ -29,8 +34,10 @@ def get_microsatellites():
         # Create a cursor object to execute SQL queries
         cursor = conn.cursor()
 
+        logging.info("Fetching data from Microsatellites table")
+
         # Execute a SELECT query to retrieve all microsatellites from the database
-        cursor.execute("SELECT * FROM microsatellites")
+        cursor.execute(select_microsatellites_statement)
 
         # Fetch all rows as a list of tuples
         rows = cursor.fetchall()
@@ -51,11 +58,60 @@ def get_microsatellites():
             # Add the dictionary to the list of microsatellites
             microsatellites.append(microsatellite)
 
-        cursor.close() 
+        cursor.close()
+
+        logging.info("Fetch successful")
+
         # Return the list of microsatellites as JSON
         response = jsonify(microsatellites)
         response.status_code = 200
         return response
+
+    except Exception as err:
+        print(err)
+        message = jsonify(message='Internal Server Error')
+        return make_response(message, 500)
+    finally: 
+        conn.close()  
+
+
+@app.route('/microsatellites', methods = ['POST'])
+def post_microsatellites():
+    try:
+        data = request.get_json()
+
+        name = data['name']
+        base = data['base']
+        repeats = data['repeats']
+
+        if name is '' or repeats is '' or name is '':
+            message = jsonify(message='Bad Request')
+            return make_response(message, 400)
+
+        # Set up a MySQL connection
+        conn = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database
+        )
+
+        # Create a cursor object to execute SQL queries
+        cursor = conn.cursor()
+
+        logging.info("Inserting data into Microsatellites table")
+
+        # Execute a SELECT query to retrieve all microsatellites from the database
+        cursor.execute(insert_microsatellites_statement, (name,base,repeats))
+
+        # Make sure data is committed to the database
+        conn.commit()
+        
+        cursor.close()
+
+        logging.info("Insertion successful")
+        # Return success
+        return ('', 200)
 
     except Exception as err:
         print(err)
