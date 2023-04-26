@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS microsatellites (
 );
 
 INSERT INTO microsatellites (name, base, repeats) VALUES 
-('Byron Jenkins', 'CA', 2),
+('Thomas Jenkins', 'CA', 2),
 ('Maeve Chen', 'TTG', 3),
 ('Anjali Gupta', 'GCT', 4),
 ('Ricardo Santos', 'ATC', 5),
