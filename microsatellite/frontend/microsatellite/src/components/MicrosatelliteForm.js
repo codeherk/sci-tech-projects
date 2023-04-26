@@ -28,11 +28,11 @@ const MicrosatelliteForm = ({ formData, setFormData, onSubmit }) => {
             </label>
             <input
             className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="repeatNumber"
-            name="repeatNumber"
+            id="repeats"
+            name="repeats"
             type="number"
             placeholder="Repeat Number"
-            value={formData.repeatNumber}
+            value={formData.repeats}
             onChange={handleChange}
             required
             />

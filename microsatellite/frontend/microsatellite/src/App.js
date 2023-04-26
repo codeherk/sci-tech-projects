@@ -21,7 +21,7 @@ function App() {
 // Define a state for the form data
 const [formData, setFormData] = useState({
   name: "",
-  repeatNumber: "",
+  repeats: "",
   base: "",
 });
 
