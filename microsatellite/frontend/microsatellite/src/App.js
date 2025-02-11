@@ -8,7 +8,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
 
   const fetchMicrosatellites = async () => {
-    const res = await fetch("http://localhost:5000/microsatellites");
+    const res = await fetch("http://localhost:6000/microsatellites");
     const data = await res.json();
     setMicrosatellites(data);
   };
@@ -30,7 +30,7 @@ const handleAddMicrosatellite = async (event) => {
   event.preventDefault();
   try {
     // Send POST request with form data
-    const response = await fetch('http://localhost:5000/microsatellites', {
+    const response = await fetch('http://localhost:6000/microsatellites', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

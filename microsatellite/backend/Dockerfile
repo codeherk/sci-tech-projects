@@ -16,8 +16,8 @@ RUN pipenv install --deploy
 # Copy the application files
 COPY app.py ./
 
-# Expose port 5000
-EXPOSE 5000
+# Expose port 6000
+EXPOSE 6000
 
 # Start the application
 CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0"]
