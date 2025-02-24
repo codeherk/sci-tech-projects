@@ -6,48 +6,49 @@ function App() {
   const [microsatellites, setMicrosatellites] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const apiPort = 5001;
 
   const fetchMicrosatellites = async () => {
-    const res = await fetch("http://localhost:6000/microsatellites");
+    const res = await fetch(`http://localhost:${apiPort}/microsatellites`);
     const data = await res.json();
     setMicrosatellites(data);
   };
 
   useEffect(() => {
-
     fetchMicrosatellites();
   }, []);
 
-// Define a state for the form data
-const [formData, setFormData] = useState({
-  name: "",
-  repeats: "",
-  base: "",
-});
+  // Define a state for the form data
+  const [formData, setFormData] = useState({
+    name: "",
+    repeats: "",
+    base: "",
+  });
 
-// Define a function to handle form submission
-const handleAddMicrosatellite = async (event) => {
-  event.preventDefault();
-  try {
-    // Send POST request with form data
-    const response = await fetch('http://localhost:6000/microsatellites', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-    if (!response.ok) {
-      throw new Error('Failed to add microsatellite');
+  // Define a function to handle form submission
+  const handleAddMicrosatellite = async (event) => {
+    event.preventDefault();
+    try {
+      // Send POST request with form data
+      const response = await fetch(`http://localhost:${apiPort}/microsatellites`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add microsatellite');
+      }
+      // Update microsatellite list
+      fetchMicrosatellites();
+      // Hide the form
+      setShowForm(false);
+    } catch (error) {
+      console.error(error);
     }
-    // Update microsatellite list
-    fetchMicrosatellites();
-    // Hide the form
-    setShowForm(false);
-  } catch (error) {
-    console.error(error);
-  }
-};
+  };
+  
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };

@@ -1,6 +1,8 @@
 # Base image
 FROM python:3.8-slim-buster
 
+RUN apt update && apt upgrade -y
+
 # Set the working directory
 WORKDIR /app
 
@@ -16,9 +18,5 @@ RUN pipenv install --deploy
 # Copy the application files
 COPY app.py ./
 
-# Expose port 6000
-EXPOSE 6000
-
 # Start the application
-CMD ["pipenv", "run", "flask", "run", "--host=0.0.0.0"]
-
+CMD ["pipenv", "run", "python", "app.py"]

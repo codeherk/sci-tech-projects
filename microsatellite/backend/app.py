@@ -76,7 +76,6 @@ def get_microsatellites():
         message = jsonify(message='Internal Server Error')
         return make_response(message, 500)
 
-
 @app.route('/microsatellites', methods = ['POST'])
 def post_microsatellites():
     try:
@@ -128,5 +127,5 @@ def log_request_info():
 
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
     logger.info('Now running Microsatellites API.')

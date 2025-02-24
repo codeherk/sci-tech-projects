@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   db:
     container_name: mysql
@@ -21,13 +19,13 @@ services:
       dockerfile: Dockerfile
       context: .
     ports:
-      - "6000:6000"
+      - "5001:5001"
     depends_on:
       db:
         condition: service_healthy
     environment:
       # https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach
-      MYSQL_HOST: host.docker.internal
+      MYSQL_HOST: db
       MYSQL_USER: root
       MYSQL_PASSWORD: my-secret-pw
       MYSQL_DATABASE: biology
