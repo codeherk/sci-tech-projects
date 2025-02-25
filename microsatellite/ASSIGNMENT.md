@@ -23,7 +23,7 @@
 
 6. Use biology database by running the following query:
     ```
-    USE BIOLOGY;
+    USE biology;
     ```
 
 7. Show tables in biology database by running the following query:
