@@ -1,0 +1,43 @@
+[
+    {
+      "Timestamp": "2025-03-30T08:00:00Z",
+      "SensorID": "S1",
+      "Temperature_C": 21.5,
+      "Humidity_Percent": 45,
+      "CO2_ppm": 410,
+      "Location": "Greenhouse A"
+    },
+    {
+      "Timestamp": "2025-03-30T08:05:00Z",
+      "SensorID": "S2",
+      "Temperature_C": 20.8,
+      "Humidity_Percent": 47,
+      "CO2_ppm": 412,
+      "Location": "Greenhouse A"
+    },
+    {
+      "Timestamp": "2025-03-30T08:10:00Z",
+      "SensorID": "S1",
+      "Temperature_C": 21.7,
+      "Humidity_Percent": 44,
+      "CO2_ppm": 409,
+      "Location": "Greenhouse A"
+    },
+    {
+      "Timestamp": "2025-03-30T08:15:00Z",
+      "SensorID": "S2",
+      "Temperature_C": 20.9,
+      "Humidity_Percent": 46,
+      "CO2_ppm": 411,
+      "Location": "Greenhouse A"
+    },
+    {
+      "Timestamp": "2025-03-30T08:20:00Z",
+      "SensorID": "S1",
+      "Temperature_C": 22.0,
+      "Humidity_Percent": 43,
+      "CO2_ppm": 408,
+      "Location": "Greenhouse A"
+    }
+  ]
+  

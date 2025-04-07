@@ -180,3 +180,15 @@ microsatellite/frontend/microsatellite/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform-version
+*.tfvars
+*.tfvars.json
+*.tfplan
+*.tfplan.json
+
+*.zip
