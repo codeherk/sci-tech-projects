@@ -9,7 +9,7 @@ from datetime import datetime
 
 print('Loading function')
 
-s3 = boto3.client('s3')
+s3=boto3.client('s3', endpoint_url='http://localhost:4566')  # LocalStack endpoint
 
 
 def lambda_handler(event, context):

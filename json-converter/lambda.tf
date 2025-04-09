@@ -114,7 +114,7 @@ resource "aws_lambda_function" "json_converter" {
 
   source_code_hash = data.archive_file.lambda.output_base64sha256
 
-  runtime = "python3.8"
+  runtime = "python3.12"
 
   environment {
     variables = {
