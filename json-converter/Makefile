@@ -40,11 +40,18 @@ local-destroy: # Destroy local resources via docker-compose
 local-upload-sample: # Upload sample data to local S3 bucket
 	@echo "Uploading sample data to local S3..."
 	aws --endpoint-url=http://localhost:4566 s3api put-object --bucket sci-tech-scholars-bucket \
-		--key /input/data.json --body=data.json
+		--key input/data.json --body=tests/data.json
 	@echo "Sample data uploaded successfully."
+
+local-show-s3: # Show objects in local S3 bucket
+	@echo "Showing objects in local S3..."
+	aws --endpoint-url=http://localhost:4566 s3api list-objects-v2 --bucket sci-tech-scholars-bucket
 
 local-follow-lambda:
 	aws --endpoint-url=http://localhost:4566 logs tail '/aws/lambda/json-converter' --follow
+
+run-pytest:
+	pytest tests/test.py --disable-pytest-warnings 
 
 
 #############################
@@ -65,7 +72,7 @@ full-start: # Provision AWS resources and upload sample data to S3, triggering t
 
 upload-sample: # Upload sample data to S3 bucket
 	@echo "Uploading sample data to S3..."
-	aws s3 cp data.json s3://sci-tech-scholars-bucket/input/data.json
+	aws s3 cp tests/data.json s3://sci-tech-scholars-bucket/input/data.json
 	@echo "Sample data uploaded successfully."
 
 delete-s3-bucket: # Delete S3 bucket, including all objects (if any)
