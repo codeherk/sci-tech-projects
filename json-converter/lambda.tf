@@ -100,13 +100,13 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 data "archive_file" "lambda" {
   type        = "zip"
   source_file = "main.py"
-  output_path = "localstack/lambda_function_payload.zip"
+  output_path = "localstack/json-converter.zip"
 }
 
 resource "aws_lambda_function" "json_converter" {
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
-  filename      = "localstack/lambda_function_payload.zip"
+  filename      = "localstack/json-converter.zip"
   function_name = "json_converter"
   role          = aws_iam_role.lambda.arn
   # The handler is the name of the file (without the .py) and the function name

@@ -8,7 +8,7 @@ echo "VARS: ${DEBUG} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${PYDEVD_DISA
 # Create a lambda with mounted zip file
 awslocal --endpoint-url=http://localhost:4566 lambda create-function \
 --function-name json-converter \
---zip-file fileb:///var/lib/localstack/lambda/lambda_function_payload.zip \
+--zip-file fileb:///var/lib/localstack/lambda/json-converter.zip \
 --environment "Variables={ENVIRONMENT=${ENVIRONMENT}, DEBUG=${DEBUG}, LAMBDA_DEBUG_MODE=${LAMBDA_DEBUG_MODE}, \
     AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}, AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}, \
     PYDEVD_DISABLE_FILE_VALIDATION=${PYDEVD_DISABLE_FILE_VALIDATION}}" \
