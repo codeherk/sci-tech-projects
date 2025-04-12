@@ -1,0 +1,15 @@
+# terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform-version
+*.tfvars
+*.tfvars.json
+*.tfplan
+*.tfplan.json
+.terraform.lock.hcl
+
+*.zip
+*.csv
+
+.vscode

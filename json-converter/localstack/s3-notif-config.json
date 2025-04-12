@@ -1,0 +1,23 @@
+{
+    "LambdaFunctionConfigurations": [
+        {
+            "Id": "s3eventtriggerslambda",
+            "LambdaFunctionArn": "arn:aws:lambda:us-east-1:000000000000:function:json-converter",
+            "Events": ["s3:ObjectCreated:*"],
+            "Filter": {
+                "Key": {
+                    "FilterRules": [
+                        {
+                            "Name": "prefix",
+                            "Value": "input/"
+                        },
+                        {
+                            "Name": "suffix",
+                            "Value": ".json"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
