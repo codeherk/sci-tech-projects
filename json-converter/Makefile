@@ -1,6 +1,5 @@
 # Name of the virtual environment directory
 VENV_DIR = venv
-LANG = es
 
 # Python executable
 PYTHON = python3.12
@@ -8,16 +7,14 @@ PYTHON = python3.12
 #############################
 #### Virtual Environment ####
 #############################
-# Create the virtual environment
-create-venv:
+
+venv-create: # Create python virtual environment
 	$(PYTHON) -m venv $(VENV_DIR)
 
-# Install dependencies
-venv-install:
+venv-install: # Install dependencies in the virtual environment
 	$(VENV_DIR)/bin/pip install -r requirements.txt
 
-# Export dependencies to requirements.txt
-venv-freeze:
+venv-freeze: # Export dependencies to requirements.txt
 	$(VENV_DIR)/bin/pip freeze > requirements.txt
 
 #############################
@@ -47,16 +44,17 @@ local-show-s3: # Show objects in local S3 bucket
 	@echo "Showing objects in local S3..."
 	aws --endpoint-url=http://localhost:4566 s3api list-objects-v2 --bucket sci-tech-scholars-bucket
 
-local-follow-lambda:
+local-follow-lambda: # Tail logs of localstack Lambda function
 	aws --endpoint-url=http://localhost:4566 logs tail '/aws/lambda/json-converter' --follow
 
-run-pytest:
+run-pytest: # Run pytest tests
 	pytest tests/test.py --disable-pytest-warnings 
 
 
 #############################
 ###### Infrastructure #######
 #############################
+
 provision: # Provision AWS resources via terraform
 	@echo "Provisioning AWS resources..."
 	terraform apply -auto-approve
@@ -66,14 +64,13 @@ destroy: # Destroy AWS resources via terraform
 	@$(MAKE) delete-s3-bucket
 	terraform destroy -auto-approve
 
-full-start: # Provision AWS resources and upload sample data to S3, triggering the Lambda function
-	@$(MAKE) provision
-	@$(MAKE) upload-sample
-
 upload-sample: # Upload sample data to S3 bucket
 	@echo "Uploading sample data to S3..."
 	aws s3 cp tests/data.json s3://sci-tech-scholars-bucket/input/data.json
 	@echo "Sample data uploaded successfully."
+
+# Provision AWS resources and upload sample data to S3, triggering the Lambda function
+full-start: provision upload-sample
 
 delete-s3-bucket: # Delete S3 bucket, including all objects (if any)
 	@echo "Deleting S3 bucket..."
