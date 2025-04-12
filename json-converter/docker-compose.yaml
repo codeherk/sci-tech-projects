@@ -27,4 +27,5 @@ services:
 
 networks:
   local-development:
+    name: local-development-network
     driver: bridge
