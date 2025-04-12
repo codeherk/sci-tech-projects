@@ -19,7 +19,7 @@ This project provides an AWS Lambda function that converts JSON files uploaded t
 
 ## Overview
 
-The `json-converter` project automates the conversion of JSON files to CSV format using an AWS Lambda function. When a JSON file is uploaded to the `input/` folder of the S3 bucket, the Lambda function is triggered, processes the file, and uploads the resulting CSV file to the `output/` folder of the same bucket.
+The `json-converter` project automates the conversion of JSON files to CSV format using an AWS Lambda function. When a JSON file is uploaded to the `input/` path of the S3 bucket, the Lambda function is triggered, processing the file, and uploading the resulting CSV file to the `output/` path of the same bucket.
 
 ![Diagram](./docs/diagram.png)
 
