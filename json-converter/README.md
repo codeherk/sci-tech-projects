@@ -93,11 +93,11 @@ Steps 1-3 are only required once to set up the local development environment. St
 
 ## Local Testing
 1. Follow step 4
-2. Run the tests using `pytest`:
+2. Run the tests:
    ```bash
    make run-pytest
    ```
-   This will run the tests in the `tests/test.py`.
+   This will run the tests in `tests/test.py`.
 
 ## Deploying to AWS
 1. Initialize Terraform:
