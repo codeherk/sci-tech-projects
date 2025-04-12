@@ -33,11 +33,11 @@ The `json-converter` project automates the conversion of JSON files to CSV forma
 
 ## Prerequisites
 
-1. [Python 3.12](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installation/)
-2. [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-3. [Docker](https://docs.docker.com/get-docker/)
+1. [Python 3.12](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installation/) installed
+2. [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) installed
+3. [Docker](https://docs.docker.com/get-docker/) installed
    - For setting up the local development environment and testing the Lambda function.
-4. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+4. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) installed
 5. Configure your AWS CLI with appropriate credentials:
    ```bash
    aws configure
