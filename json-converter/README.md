@@ -55,7 +55,10 @@ Steps 1-3 are only required once to set up the local development environment. St
 2. Activate the virtual environment:
    ```bash
    source venv/bin/activate
+   # For Windows
+   .\venv\Scripts\activate
    ```
+
 3. Install the required Python packages:
     ```bash
     make venv-install

@@ -1,6 +1,13 @@
 # Name of the virtual environment directory
 VENV_DIR = venv
 
+VENV_PIP = $(VENV_DIR)/bin/pip
+VENV_SITE_PACKAGES = $(VENV_DIR)/lib/python3.12/site-packages/
+
+# If you are using Windows, uncomment the following lines below and comment the above lines
+# VENV_PIP = $(VENV_DIR)/Scripts/pip
+# VENV_SITE_PACKAGES = $(VENV_DIR)/Lib/site-packages/
+
 # Python executable
 PYTHON = python3.12
 
@@ -12,10 +19,10 @@ venv-create: # Create python virtual environment
 	$(PYTHON) -m venv $(VENV_DIR)
 
 venv-install: # Install dependencies in the virtual environment
-	$(VENV_DIR)/bin/pip install -r requirements.txt
+	$(VENV_PIP) install -r requirements.txt
 
 venv-freeze: # Export dependencies to requirements.txt
-	$(VENV_DIR)/bin/pip freeze > requirements.txt
+	$(VENV_PIP) freeze > requirements.txt
 
 #############################
 #### Local Infrastructure ###
@@ -24,7 +31,7 @@ venv-freeze: # Export dependencies to requirements.txt
 # https://docs.aws.amazon.com/lambda/latest/dg/python-package.html#python-package-create-dependencies
 local-provision: # Provision local resources via docker-compose
 	@echo "Packaging Lambda function..."
-	zip -rq ./localstack/json-converter.zip ./venv/lib/python3.12/site-packages/ main.py
+	tar ./localstack/json-converter.zip ./$(VENV_SITE_PACKAGES) main.py
 	@echo "Provisioning local resources..."
 	docker-compose up -d --build
 	@echo "Local resources provisioned successfully."
