@@ -31,7 +31,7 @@ venv-freeze: # Export dependencies to requirements.txt
 # https://docs.aws.amazon.com/lambda/latest/dg/python-package.html#python-package-create-dependencies
 local-provision: # Provision local resources via docker-compose
 	@echo "Packaging Lambda function..."
-	tar ./localstack/json-converter.zip ./$(VENV_SITE_PACKAGES) main.py
+	zip ./localstack/json-converter.zip ./$(VENV_SITE_PACKAGES) ./src/
 	@echo "Provisioning local resources..."
 	docker-compose up -d --build
 	@echo "Local resources provisioned successfully."
@@ -54,8 +54,11 @@ local-show-s3: # Show objects in local S3 bucket
 local-follow-lambda: # Tail logs of localstack Lambda function
 	aws --endpoint-url=http://localhost:4566 logs tail '/aws/lambda/json-converter' --follow
 
-run-pytest: # Run pytest tests
-	pytest tests/test.py --disable-pytest-warnings 
+run-unit-tests: # Run unit tests
+	pytest tests/unit/ --disable-pytest-warnings 
+
+run-it-tests: # Run integration tests
+	pytest tests/integration/ --disable-pytest-warnings 
 
 
 #############################

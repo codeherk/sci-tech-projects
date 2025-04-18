@@ -4,8 +4,7 @@ import json
 import urllib.parse
 import boto3
 
-import csv
-import io
+from csv_utils import json_to_csv
 from datetime import datetime
 import os
 import logging
@@ -56,24 +55,15 @@ def lambda_handler(event, context):
         # Read the JSON content from the S3 object
         data = json.loads(response['Body'].read().decode('utf-8'))
 
-        # Create a CSV file in memory
-        csv_buffer = io.StringIO()
-        csv_writer = csv.writer(csv_buffer)
-
-        # Write the header row
-        header = data[0].keys()
-        csv_writer.writerow(header)
-
-        # Write the data rows
-        for record in data:
-            csv_writer.writerow(record.values())
+        # Convert JSON to CSV
+        csv_content = json_to_csv(data)
 
         # Generate a unique filename for the output CSV
         timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
         output_filename = f"output/data_{timestamp}.csv"
 
         # Upload the CSV file back to S3
-        s3.put_object(Bucket=bucket, Key=output_filename, Body=csv_buffer.getvalue())
+        s3.put_object(Bucket=bucket, Key=output_filename, Body=csv_content)
 
         logger.info(f"CSV file uploaded to S3 at {output_filename}")
         return output_filename

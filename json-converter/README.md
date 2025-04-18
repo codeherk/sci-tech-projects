@@ -11,6 +11,8 @@ This project provides an AWS Lambda function that converts JSON files uploaded t
   - [Prerequisites](#prerequisites)
   - [Local Development Setup](#local-development-setup)
   - [Local Testing](#local-testing)
+    - [Unit Testing](#unit-testing)
+    - [Integration Testing](#integration-testing)
   - [Deploying to AWS](#deploying-to-aws)
   - [Makefile Targets](#makefile-targets)
     - [Virtual Environment](#virtual-environment)
@@ -95,12 +97,20 @@ Steps 1-3 are only required once to set up the local development environment. St
    This will stop and remove the LocalStack container and delete the Docker network.
 
 ## Local Testing
-1. Follow step 4
-2. Run the tests:
+### Unit Testing
+1. Run the unit tests:
    ```bash
-   make run-pytest
+   make run-unit-tests
    ```
-   This will run the tests in `tests/test.py`.
+   This will run the tests in `tests/unit/`.
+
+### Integration Testing
+1. Follow step 4
+2. Run the integration tests:
+   ```bash
+   make run-it-tests
+   ```
+   This will run the tests in `tests/integration/`.
 
 ## Deploying to AWS
 1. Initialize Terraform:
@@ -140,7 +150,8 @@ The following `make` commands are available for managing the project:
 - `make local-upload-sample`: Upload sample data to the local S3 bucket.
 - `make local-show-s3`: List objects in the local S3 bucket.
 - `make local-follow-lambda`: Tail logs of the local Lambda function.
-- `make run-pytest`: Run tests using `pytest`.
+- `make run-unit-test`: Run unit tests using `pytest`.
+- `make run-it-test`: Run integration tests using `pytest`.
 
 ### AWS Infrastructure
 - `make provision`: Provision AWS resources using Terraform.
