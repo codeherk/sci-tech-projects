@@ -1,5 +1,5 @@
 import pytest
-from csv_utils import json_to_csv
+from src.csv_utils import json_to_csv
 
 def test_json_to_csv():
     # Sample JSON data

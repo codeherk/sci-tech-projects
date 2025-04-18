@@ -55,10 +55,10 @@ local-follow-lambda: # Tail logs of localstack Lambda function
 	aws --endpoint-url=http://localhost:4566 logs tail '/aws/lambda/json-converter' --follow
 
 run-unit-tests: # Run unit tests
-	pytest tests/unit/ --disable-pytest-warnings 
+	pytest tests/unit/ --disable-pytest-warnings -p no:cacheprovider
 
 run-it-tests: # Run integration tests
-	pytest tests/integration/ --disable-pytest-warnings 
+	pytest tests/integration/ --disable-pytest-warnings -p no:cacheprovider
 
 
 #############################
