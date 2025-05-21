@@ -31,7 +31,7 @@ venv-freeze: # Export dependencies to requirements.txt
 # https://docs.aws.amazon.com/lambda/latest/dg/python-package.html#python-package-create-dependencies
 local-provision: # Provision local resources via docker-compose
 	@echo "Packaging Lambda function..."
-	zip ./localstack/json-converter.zip ./$(VENV_SITE_PACKAGES) ./src/
+	rm -f ./localstack/json-converter.zip && zip -r ./localstack/json-converter.zip ./$(VENV_SITE_PACKAGES) ./src/
 	@echo "Provisioning local resources..."
 	docker-compose up -d --build
 	@echo "Local resources provisioned successfully."

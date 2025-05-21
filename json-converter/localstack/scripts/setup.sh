@@ -12,7 +12,7 @@ awslocal --endpoint-url=http://localhost:4566 lambda create-function \
 --environment "Variables={ENVIRONMENT=${ENVIRONMENT}, DEBUG=${DEBUG}, LAMBDA_DEBUG_MODE=${LAMBDA_DEBUG_MODE}, \
     AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}, AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}, \
     PYDEVD_DISABLE_FILE_VALIDATION=${PYDEVD_DISABLE_FILE_VALIDATION}}" \
---handler main.lambda_handler --runtime python3.12 \
+--handler src.main.lambda_handler --runtime python3.12 \
 --role arn:aws:iam::000000000000:role/lambda-role 
 
 echo "Waiting until lambda transitions from Pending to Active..."

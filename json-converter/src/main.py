@@ -4,7 +4,7 @@ import json
 import urllib.parse
 import boto3
 
-from csv_utils import json_to_csv
+from .conversion import json_to_csv
 from datetime import datetime
 import os
 import logging
