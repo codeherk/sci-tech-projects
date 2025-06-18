@@ -99,18 +99,18 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 # Zips the lambda function code
 data "archive_file" "lambda" {
   type        = "zip"
-  source_file = "main.py"
-  output_path = "localstack/json-converter.zip"
+  source_dir  = "${path.module}/src"
+  output_path = "${path.module}/localstack/json-converter.zip"
 }
 
 resource "aws_lambda_function" "json_converter" {
-  # If the file is not in the current working directory you will need to include a
-  # path.module in the filename.
-  filename      = "localstack/json-converter.zip"
+  # If the file is not in the current working directory you will need to include 
+  # a path.module in the filename.
+  filename      = "${path.module}/localstack/json-converter.zip"
   function_name = "json_converter"
   role          = aws_iam_role.lambda.arn
   # The handler is the name of the file (without the .py) and the function name
-  handler       = "main.lambda_handler"
+  handler = "main.lambda_handler"
 
   source_code_hash = data.archive_file.lambda.output_base64sha256
 
@@ -125,24 +125,24 @@ resource "aws_lambda_function" "json_converter" {
 
 # S3 Bucket notification to trigger the Lambda function for files in the input/ path
 resource "aws_lambda_permission" "allow_bucket" {
-    statement_id  = "AllowExecutionFromS3"
-    action        = "lambda:InvokeFunction"
-    function_name = aws_lambda_function.json_converter.function_name
-    principal     = "s3.amazonaws.com"
-    
-    # The bucket ARN is used to specify the source of the event
-    source_arn = "${aws_s3_bucket.sci_tech_scholars.arn}"
+  statement_id  = "AllowExecutionFromS3"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.json_converter.function_name
+  principal     = "s3.amazonaws.com"
+
+  # The bucket ARN is used to specify the source of the event
+  source_arn = aws_s3_bucket.sci_tech_scholars.arn
 }
 
 resource "aws_s3_bucket_notification" "s3_trigger" {
-    bucket = aws_s3_bucket.sci_tech_scholars.id
+  bucket = aws_s3_bucket.sci_tech_scholars.id
 
-    lambda_function {
-        lambda_function_arn = aws_lambda_function.json_converter.arn
-        events              = ["s3:ObjectCreated:*"]
-        filter_prefix       = "input/"
-        filter_suffix       = ".json"
-    }
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.json_converter.arn
+    events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = "input/"
+    filter_suffix       = ".json"
+  }
 
-    depends_on = [aws_lambda_permission.allow_bucket]
+  depends_on = [aws_lambda_permission.allow_bucket]
 }
