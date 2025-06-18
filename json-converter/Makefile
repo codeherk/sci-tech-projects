@@ -29,13 +29,13 @@ venv-freeze: # Export dependencies to requirements.txt
 #############################
 
 # Remove existing zip, zip the dependencies (without the top level directories structure), zip our source code (flattened, without the src directory name)
-zip: #
-	rm -f ./localstack/json-converter.zip && (cd ./$(VENV_SITE_PACKAGES) && zip -r - .) > ./localstack/json-converter.zip && zip -j ./localstack/json-converter.zip ./src/*
-
 # https://docs.aws.amazon.com/lambda/latest/dg/python-package.html#python-package-create-dependencies
+zip-with-dependencies: # Create a zip file with dependencies and source code
+	rm -f ./json-converter.zip && (cd ./$(VENV_SITE_PACKAGES) && zip -r - .) > ./json-converter.zip && zip -j ./json-converter.zip ./src/*
+
 local-provision: # Provision local resources via docker-compose
 	@echo "Packaging Lambda function..."
-	@$(MAKE) zip
+	@$(MAKE) zip-with-dependencies
 	@echo "Provisioning local resources..."
 	docker-compose up -d --build
 	@echo "Local resources provisioned successfully."
@@ -69,7 +69,8 @@ run-it-tests: # Run integration tests
 ###### Infrastructure #######
 #############################
 
-provision: # Provision AWS resources via terraform
+
+provision: zip-with-dependencies # Provision AWS resources via terraform
 	@echo "Provisioning AWS resources..."
 	terraform apply -auto-approve
 

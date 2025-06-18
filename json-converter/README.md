@@ -70,7 +70,7 @@ Steps 1-3 are only required once to set up the local development environment. St
    make local-provision
    ```
    This will:
-      - Package the Lambda function code into a zip file at `localstack/json-converter.zip`
+      - Package the Lambda function code into a zip file at `json-converter.zip`
       - Create a Docker network named `local-development`
       - Start LocalStack in a Docker container
       - Mount the Lambda zip file to the LocalStack container

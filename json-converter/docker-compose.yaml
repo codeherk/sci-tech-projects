@@ -19,7 +19,7 @@ services:
       - "0.0.0.0:4510-4559:4510-4559"  # external services port range
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock  # for localstack to run docker
-      - ./localstack/json-converter.zip:/var/lib/localstack/lambda/json-converter.zip
+      - ./json-converter.zip:/var/lib/localstack/lambda/json-converter.zip
       - ./localstack/s3-notif-config.json:/var/lib/localstack/s3-notif-config.json
       - ./localstack/scripts/setup.sh:/etc/localstack/init/ready.d/setup.sh # ready hook
     networks:
